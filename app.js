@@ -33,17 +33,37 @@ GAME RULES:
 
   // update the round score IF the rolled number must not a 1
   if (dice !== 1) {
-    roundScore += dice;
-    document.querySelector('#score-' + activePlayer).textContent = roundScore;
-    return roundScore;
+      roundScore += dice;
+      document.querySelector('#score-' + activePlayer).textContent = roundScore;
+      return roundScore;
   } else {
-    document.querySelector('#score-' + activePlayer).textContent = 0;
-    roundScore = 0;
-    activePlayer = 1 - activePlayer;
-    return activePlayer;
+      document.querySelector('.player-0-panel').classList.toggle('active');
+      document.querySelector('.player-1-panel').classList.toggle('active');
+      document.querySelector('#score-' + activePlayer).textContent = 0;
+      document.querySelector('.dice').style.display='none';
+      roundScore = 0;
+      activePlayer = 1 - activePlayer;
+      return activePlayer;
+
   };
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    
+  // add Current score to global score
+  scores[activePlayer] += roundScore;
+  //update the UI
+  document.querySelector('#current-' + activePlayer).textContent = scores[activePlayer];
+
+
+  document.querySelector('.player-0-panel').classList.toggle('active');
+  document.querySelector('.player-1-panel').classList.toggle('active');
+  document.querySelector('#score-' + activePlayer).textContent = 0;
+  document.querySelector('.dice').style.display='none';
+  roundScore = 0;
+  activePlayer = 1 - activePlayer;
+  return activePlayer;
+
+
+  // check if player won the game
+
 });
